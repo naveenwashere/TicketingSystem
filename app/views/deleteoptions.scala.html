@@ -1,0 +1,50 @@
+@(tasks: List[Task], taskForm: Form[Task])
+
+@import helper._
+
+@main("Todo list") {
+    
+    <div ng-app="delApp" ng-controller="delCtrl">
+
+	    @form(routes.Application.tasks()) {
+	        <h1>@tasks.size() task(s)</h1>
+	    
+	    <ul>
+	        @for(task <- tasks) {
+	            <li>
+	                @task.customerInfo
+	                
+	                @task.comments
+	                
+	                @task.createdBy
+	                
+	                @task.status
+	                
+	                @form(routes.Application.deleteTask(task.id)) {
+	                    <input type="submit" value="Delete">
+	                }
+	            </li>
+	        }
+	    </ul>
+	    }
+
+		<a href="/main">Go back to home page</a>
+
+    </div>
+
+    <script type="text/javascript">
+		var app = angular.module('delApp', []);    
+	    app.config(['$routeProvider',
+	                        function($routeProvider) {
+	                          $routeProvider.
+	                            when('/main', {
+	                              templateUrl: '/index.scala.html',
+	                              controller: 'mainCtrl'
+	                            }).
+	                            otherwise({
+	                              redirectTo: '/tasks'
+	                            });
+	                        }]);
+	</script>
+    
+}
