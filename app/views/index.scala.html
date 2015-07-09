@@ -120,20 +120,20 @@
 		<div ng-show="assignView">
 			<div class="container">
     		<table class="table">
-				    <thead>
+				    <thead">
 				      <tr>
 				      	<th>ID</th>
 				        <th>Customer Information</th>
 				        <th>Comments</th>
 				        <th>Created By</th>
-				        <th>Status</th>
+						<th>Status</th>
+				        <th>Assing To</th>
 				        <th>Action</th>
 				      </tr>
 				    </thead>
 				    <tbody>
 	        		
 	        		@for(task <- tasks) {
-				 
 				      <tr>
 				      	<td>@task.id</td>
 						<td>@task.customerInfo</td>
@@ -141,8 +141,18 @@
 						<td>@task.createdBy</td>
 						<td>@task.status</td>
 						<td>
+							<div class="col-sm-8">
+			                	<select class="form-control" name="assign" id="assign" placeholder="" ng-model="assign">
+			                		<option value="" class="btn dropdown-toggle"></option>
+									@for(task <- tasks) {
+					                	<option class="btn dropdown-toggle">@task.createdBy</option>
+							        }
+								</select>
+						    </div>
+						</td>
+						<td>
 							@form(routes.Application.deleteTask(task.id)) {
-			                    <button type="submit" class="btn btn-success" id="btn_create" value="Delete">Assign This Ticket</button>
+			                    <button type="submit" class="btn btn-success" id="btn_create" value="Assign">Assign This Ticket</button>
 			                }							
 						</td>
 				      </tr>
