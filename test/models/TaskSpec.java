@@ -21,11 +21,11 @@ public class TaskSpec {
         running(fakeApplication(), new Runnable() {
             public void run() {
                 String testLabel = "Task label";
-                Task.create(testLabel);
+                Task.create(testLabel, "", "", "");
                     List<Task> tasks = Task.all();
 
                 assertThat(tasks.size()).isEqualTo(1);
-                assertThat(tasks.get(0).label).isEqualTo(testLabel);
+                assertThat(tasks.get(0).customerInfo).isEqualTo(testLabel);
             }
         });
     }
@@ -33,7 +33,7 @@ public class TaskSpec {
     @Test
     public void beDeletable(){
         String testLabel = "Task label";
-        Task.create(testLabel);
+        Task.create(testLabel, "", "", "");
 
         List<Task> tasks = Task.all();
         Task.delete(tasks.get(0).id);
