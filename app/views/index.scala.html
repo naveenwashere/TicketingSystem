@@ -2,7 +2,7 @@
 
 @import helper._
 
-@main("Todo list") {
+@main("Defect Tracking System") {
 
 	<script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
@@ -65,7 +65,6 @@
 						<label id="lbl_status" for="status" class="col-sm-4 control-label">Status</label>
 			            <div class="col-sm-8">
 			                 <select class="form-control" name="status" id="status" placeholder="" ng-model="status">
-			                	<option value="" class="btn dropdown-toggle"></option>
 			                	<option value="New" class="btn dropdown-toggle">New</option>
 			                 </select>
 			            </div>
@@ -91,6 +90,7 @@
 				        <th>Comments</th>
 				        <th>Created By</th>
 				        <th>Status</th>
+				        <th>Assigned To</th>
 				        <th>Action</th>
 				      </tr>
 				    </thead>
@@ -104,6 +104,7 @@
 						<td>@task.comments</td>
 						<td>@task.createdBy</td>
 						<td>@task.status</td>
+						<td>@task.assignTo</td>
 						<td>
 							@form(routes.Application.deleteTask(task.id)) {
 			                    <button type="submit" class="btn btn-success" id="btn_create" value="Delete">Delete This Ticket</button>
@@ -126,7 +127,7 @@
 				        <th>Comments</th>
 				        <th>Created By</th>
 						<th>Status</th>
-				        <th>Assing To</th>
+						<th>Assinged To</th>
 				        <th>Action</th>
 				      </tr>
 				    </thead>
@@ -139,26 +140,67 @@
 						<td>@task.comments</td>
 						<td>@task.createdBy</td>
 						<td>@task.status</td>
+						<td>@task.assignTo</td>
 						<td>
-							<div class="col-sm-8">
-			                	<select class="form-control" name="assign" id="assign" placeholder="" ng-model="assign">
-			                		<option value="" class="btn dropdown-toggle"></option>
-									@for(task <- tasks) {
-					                	<option class="btn dropdown-toggle">@task.createdBy</option>
-							        }
-								</select>
-						    </div>
-						</td>
-						<td>
-							@form(routes.Application.deleteTask(task.id)) {
-			                    <button type="submit" class="btn btn-success" id="btn_create" value="Assign">Assign This Ticket</button>
-			                }							
+			            	<button ng-click="toggleAssignTicket('@task.customerInfo', '@task.comments', '@task.createdBy')" class="btn btn-success" id="btn_create">Assign This Ticket</button>
 						</td>
 				      </tr>
 			        }
 			     </tbody>
 				</table>
 				</div>
+		</div>
+		
+		<div ng-show="assignFields">
+			@form(routes.Application.assign()) {
+		    	<h2>Assign This Ticket</h2>
+		        <table style="width:100%; border: 1px solid black; border-collapse: collapse;">
+					<tr> 
+						<label id="lbl_customerInfo" for="customerInfo" class="col-sm-4 control-label">Customer Information</label>
+			            <div class="col-sm-8">
+			                <input type="text" class="form-control" name="customerInfo" id="customerInfo" placeholder="" ng-model="customerInfo">
+			                	{{$scope.customerInfo}}
+			            </div>
+					</tr>
+					<tr> 
+						<label id="lbl_comments" for="comments" class="col-sm-4 control-label">Comments</label>
+			            <div class="col-sm-8">
+			                <textarea class="form-control" name="comments" id="comments" placeholder="" ng-model="comments">
+			                	{{$scope.comments}}
+			                </textarea>
+			            </div>
+					</tr>
+					<tr> 
+						<label id="lbl_createdBy" for="createdBy" class="col-sm-4 control-label">Created By</label>
+			            <div class="col-sm-8">
+			                <input type="text" class="form-control" name="createdBy" id="createdBy" placeholder="" ng-model="createdBy">
+			                	{{$scope.createdBy}}
+			            </div>
+					</tr>
+					<tr> 
+						<label id="lbl_status" for="status" class="col-sm-4 control-label">Status</label>
+			            <div class="col-sm-8">
+			                 <select class="form-control" name="status" id="status" placeholder="" ng-model="status">
+			                	<option value="Open" class="btn dropdown-toggle">Open</option>
+			                 </select>
+			            </div>
+					</tr>
+					<tr> 
+						<label id="lbl_status" for="assignTo" class="col-sm-4 control-label">Assign To</label>
+			            <div class="col-sm-8">
+			                 <select class="form-control" name="assignTo" id="assignTo" placeholder="" ng-model="assignTo">
+			                	@for(task <- tasks) {
+						        	<option value="@task.createdBy" class="btn dropdown-toggle">@task.createdBy</option>
+						        }
+			                 </select>
+			            </div>
+					</tr>
+				</table> 
+				<br>
+				<div class="col-sm-offset-4 col-sm-8 text-right">
+	                <button type="submit" class="btn btn-success" id="btn_create" value="Create">Assign Ticket</button>
+	            </div>
+		    }
 		</div>
 		
 	</div>
@@ -169,20 +211,34 @@
 		    $scope.toggleAdd = function() {
 		    	$scope.showView = false;
 		    	$scope.assignView = false;
+		    	$scope.assignFields = false;
 		        $scope.addView = !$scope.addView;
 		    }
 		    
 			$scope.toggleShow = function() {
 		    	$scope.addView = false;
 		    	$scope.assignView = false;
+		    	$scope.assignFields = false;
 		        $scope.showView = !$scope.showView;
 		    }
 			
 			$scope.toggleAssign = function() {
 		    	$scope.addView = false;
 		    	$scope.showView = false;
+		    	$scope.assignFields = false;
 		        $scope.assignView = !$scope.assignView;
 		    }
+			
+			$scope.toggleAssignTicket = function(custInfo, comment, originator) {
+				$scope.customerInfo = custInfo;
+				$scope.comments = comment;
+				$scope.createdBy = originator;
+				$scope.status = "Open";
+				$scope.addView = false;
+		    	$scope.showView = false;
+		    	$scope.assignView = false;
+		    	$scope.assignFields = !$scope.assignFields;
+			}
 		});
 	</script>
 

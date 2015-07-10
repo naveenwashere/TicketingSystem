@@ -22,6 +22,8 @@ public class Task
 
   public String status;
   
+  public String assignTo;
+  
   private static JacksonDBCollection<Task, String> coll = MongoDB.getCollection("tasks", Task.class, String.class);
   
   public Task()
@@ -29,12 +31,13 @@ public class Task
 
   }
 
-  public Task(String customerInfo, String comments, String createdBy, String status) 
+  public Task(String customerInfo, String comments, String createdBy, String status, String assignTo) 
   {
     this.customerInfo = customerInfo;
     this.comments = comments;
     this.createdBy = createdBy;
     this.status = status;
+    this.assignTo = assignTo;
   }
 
   public static List<Task> all() 
@@ -46,10 +49,15 @@ public class Task
   {
     Task.coll.save(task);
   }
-
-  public static void create(String customerInfo, String comments, String createdBy, String status)
+  
+  public static void update(Task task) 
   {
-      create(new Task(customerInfo, comments, createdBy, status));
+    Task.coll.update(Task.coll.findOneById(task.id), task);
+  }
+
+  public static void create(String customerInfo, String comments, String createdBy, String status, String assignTo)
+  {
+      create(new Task(customerInfo, comments, createdBy, status, assignTo));
   }
 
   public static void delete(String id) 
