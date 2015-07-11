@@ -33,6 +33,11 @@ public class Application extends Controller {
       } 
       else 
       {
+    	Task task = filledForm.get();
+    	
+    	System.out.println(task.id + " - " + task.customerInfo + " - " + task.comments + " - " + task.createdBy + " - " + task.createdBy);
+    	  
+    	  
         Task.update(filledForm.get());
         return redirect(routes.Application.tasks());  
       }
