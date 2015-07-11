@@ -198,7 +198,7 @@
 					<tr> 
 						<label id="lbl_status" for="assignTo" class="col-sm-4 control-label">Assign To</label>
 			            <div class="col-sm-8">
-			                 <select class="form-control" ng-click="validate('{{assignTo}}')" name="assignTo" id="assignTo" placeholder="" ng-model="assignTo" required>
+			                 <select class="form-control" name="assignTo" id="assignTo" placeholder="" ng-model="assignTo" required>
 			                 		<option selected disabled value="" class="btn dropdown-toggle">--Select--</option>
 			                	@for(task <- tasks) {
 						        	<option value="@task.createdBy" class="btn dropdown-toggle">@task.createdBy</option>

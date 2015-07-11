@@ -38,13 +38,6 @@ $scope.toggleAssignTicket = function(id, custInfo, comment, originator) {
 	$scope.assignFields = !$scope.assignFields;
 };
 
-$scope.validate = function(assignTo) {
-	if(assignTo == '? undefined:undefined ?')
-{
-alert('You cannot leave this field blank');
-}
-};
-
 $scope.toggleUpdateTicket = function(id, custInfo, comment, originator, status, assignTo) {
 	$scope.id = id;
 	$scope.customerInfo = custInfo;
