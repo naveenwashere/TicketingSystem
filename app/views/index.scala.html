@@ -229,7 +229,7 @@
 					<tr> 
 						<label id="lbl_status" for="status" class="col-sm-4 control-label">Status</label>
 			            <div class="col-sm-8">
-			                 <select class="form-control" name="status" id="status" placeholder="" ng-model="status" ng-init="{{$scope.status}}" ng-disabled="editable">
+			                 <select class="form-control" name="status" id="status" placeholder="" ng-model="status" ng-init="{{$scope.status}}" ng-disabled="editable" required>
 			                	<option value="New" class="btn dropdown-toggle">New</option>
 			                	<option value="Open" class="btn dropdown-toggle">Open</option>
 			                	<option value="Close" class="btn dropdown-toggle">Close</option>
@@ -239,14 +239,14 @@
 					<tr> 
 						<label id="lbl_customerInfo" for="customerInfo" class="col-sm-4 control-label">Customer Information</label>
 				            <div class="col-sm-8">
-				                <input type="text" class="form-control" name="customerInfo" id="customerInfo" placeholder="" ng-model="customerInfo" ng-disabled="editable">
+				                <input type="text" class="form-control" name="customerInfo" id="customerInfo" placeholder="" ng-model="customerInfo" ng-disabled="editable" required>
 				                	{{$scope.customerInfo}} 
 				            </div>
 					</tr>
 					<tr> 
 						<label id="lbl_comments" for="comments" class="col-sm-4 control-label">Comments</label>
 			            <div class="col-sm-8">
-			                <textarea class="form-control" name="comments" id="comments" placeholder="" ng-model="comments" ng-disabled="editable">
+			                <textarea class="form-control" name="comments" id="comments" placeholder="" ng-model="comments" ng-disabled="editable" required>
 			                	{{$scope.comments}}
 			                </textarea>
 			            </div>
@@ -254,7 +254,7 @@
 					<tr> 
 						<label id="lbl_createdBy" for="createdBy" class="col-sm-4 control-label">Created By</label>
 			            <div class="col-sm-8">
-			                <input type="text" class="form-control" name="createdBy" id="createdBy" placeholder="" ng-model="createdBy" ng-disabled="editable">
+			                <input type="text" class="form-control" name="createdBy" id="createdBy" placeholder="" ng-model="createdBy" ng-disabled="editable" required>
 			                	{{$scope.createdBy}}
 			            </div>
 					</tr>
