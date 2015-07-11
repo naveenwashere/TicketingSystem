@@ -135,7 +135,7 @@
 				    <tbody>
 	        		
 	        		@for(task <- tasks) {
-	        		  @if(task.status == "New") {
+	        		  @if(task.status != "Close") {
 				      <tr>
 				      	<td>@task.id</td>
 						<td>@task.customerInfo</td>
@@ -168,14 +168,14 @@
 					<tr> 
 						<label id="lbl_customerInfo" for="customerInfo" class="col-sm-4 control-label">Customer Information</label>
 			            <div class="col-sm-8">
-			                <input type="text" class="form-control" name="customerInfo" id="customerInfo" placeholder="" ng-model="customerInfo">
+			                <input type="text" class="form-control" name="customerInfo" id="customerInfo" placeholder="" ng-model="customerInfo" required>
 			                	{{$scope.customerInfo}}
 			            </div>
 					</tr>
 					<tr> 
 						<label id="lbl_comments" for="comments" class="col-sm-4 control-label">Comments</label>
 			            <div class="col-sm-8">
-			                <textarea class="form-control" name="comments" id="comments" placeholder="" ng-model="comments">
+			                <textarea class="form-control" name="comments" id="comments" placeholder="" ng-model="comments" required>
 			                	{{$scope.comments}}
 			                </textarea>
 			            </div>
@@ -183,14 +183,14 @@
 					<tr> 
 						<label id="lbl_createdBy" for="createdBy" class="col-sm-4 control-label">Created By</label>
 			            <div class="col-sm-8">
-			                <input type="text" class="form-control" name="createdBy" id="createdBy" placeholder="" ng-model="createdBy">
+			                <input type="text" class="form-control" name="createdBy" id="createdBy" placeholder="" ng-model="createdBy" required>
 			                	{{$scope.createdBy}}
 			            </div>
 					</tr>
 					<tr> 
 						<label id="lbl_status" for="status" class="col-sm-4 control-label">Status</label>
 			            <div class="col-sm-8">
-			                 <select class="form-control" name="status" id="status" placeholder="" ng-model="status">
+			                 <select class="form-control" name="status" id="status" placeholder="" ng-model="status" required>
 			                	<option value="Open" class="btn dropdown-toggle">Open</option>
 			                 </select>
 			            </div>
@@ -198,7 +198,8 @@
 					<tr> 
 						<label id="lbl_status" for="assignTo" class="col-sm-4 control-label">Assign To</label>
 			            <div class="col-sm-8">
-			                 <select class="form-control" name="assignTo" id="assignTo" placeholder="" ng-model="assignTo">
+			                 <select class="form-control" ng-click="validate('{{assignTo}}')" name="assignTo" id="assignTo" placeholder="" ng-model="assignTo" required>
+			                 		<option selected disabled value="" class="btn dropdown-toggle">--Select--</option>
 			                	@for(task <- tasks) {
 						        	<option value="@task.createdBy" class="btn dropdown-toggle">@task.createdBy</option>
 						        }
@@ -216,6 +217,7 @@
 		<div ng-show="updateView">
 			@form(routes.Application.assign()) {
 		    	<h2>Update This Ticket</h2>
+		    	<input type="hidden" name="editable" id="editable" ng-model="editable"> {{$scope.editable}}
 		        <table style="width:100%; border: 1px solid black; border-collapse: collapse;">
 		        	<tr> 
 						<label id="lbl_customerInfo" for="id" class="col-sm-4 control-label">Ticket ID</label>
@@ -225,31 +227,9 @@
 			            </div>
 					</tr>
 					<tr> 
-						<label id="lbl_customerInfo" for="customerInfo" class="col-sm-4 control-label">Customer Information</label>
-			            <div class="col-sm-8">
-			                <input type="text" class="form-control" name="customerInfo" id="customerInfo" placeholder="" ng-model="customerInfo">
-			                	{{$scope.customerInfo}}
-			            </div>
-					</tr>
-					<tr> 
-						<label id="lbl_comments" for="comments" class="col-sm-4 control-label">Comments</label>
-			            <div class="col-sm-8">
-			                <textarea class="form-control" name="comments" id="comments" placeholder="" ng-model="comments">
-			                	{{$scope.comments}}
-			                </textarea>
-			            </div>
-					</tr>
-					<tr> 
-						<label id="lbl_createdBy" for="createdBy" class="col-sm-4 control-label">Created By</label>
-			            <div class="col-sm-8">
-			                <input type="text" class="form-control" name="createdBy" id="createdBy" placeholder="" ng-model="createdBy">
-			                	{{$scope.createdBy}}
-			            </div>
-					</tr>
-					<tr> 
 						<label id="lbl_status" for="status" class="col-sm-4 control-label">Status</label>
 			            <div class="col-sm-8">
-			                 <select class="form-control" name="status" id="status" placeholder="" ng-model="status" ng-init="{{$scope.status}}">
+			                 <select class="form-control" name="status" id="status" placeholder="" ng-model="status" ng-init="{{$scope.status}}" ng-disabled="editable">
 			                	<option value="New" class="btn dropdown-toggle">New</option>
 			                	<option value="Open" class="btn dropdown-toggle">Open</option>
 			                	<option value="Close" class="btn dropdown-toggle">Close</option>
@@ -257,19 +237,31 @@
 			            </div>
 					</tr>
 					<tr> 
-						<label id="lbl_status" for="assignTo" class="col-sm-4 control-label">Assign To</label>
+						<label id="lbl_customerInfo" for="customerInfo" class="col-sm-4 control-label">Customer Information</label>
+				            <div class="col-sm-8">
+				                <input type="text" class="form-control" name="customerInfo" id="customerInfo" placeholder="" ng-model="customerInfo" ng-disabled="editable">
+				                	{{$scope.customerInfo}} 
+				            </div>
+					</tr>
+					<tr> 
+						<label id="lbl_comments" for="comments" class="col-sm-4 control-label">Comments</label>
 			            <div class="col-sm-8">
-			                 <select class="form-control" name="assignTo" id="assignTo" placeholder="" ng-model="assignTo" ng-init="{{$scope.assignTo}}">
-			                	@for(task <- tasks) {
-						        	<option value="@task.createdBy" class="btn dropdown-toggle">@task.createdBy</option>
-						        }
-			                 </select>
+			                <textarea class="form-control" name="comments" id="comments" placeholder="" ng-model="comments" ng-disabled="editable">
+			                	{{$scope.comments}}
+			                </textarea>
+			            </div>
+					</tr>
+					<tr> 
+						<label id="lbl_createdBy" for="createdBy" class="col-sm-4 control-label">Created By</label>
+			            <div class="col-sm-8">
+			                <input type="text" class="form-control" name="createdBy" id="createdBy" placeholder="" ng-model="createdBy" ng-disabled="editable">
+			                	{{$scope.createdBy}}
 			            </div>
 					</tr>
 				</table> 
 				<br>
 				<div class="col-sm-offset-4 col-sm-8 text-right">
-	                <button type="submit" class="btn btn-success" id="btn_create" value="Assign">Assign Ticket</button>
+	                <button type="submit" class="btn btn-success" id="btn_create" value="Assign" ng-disabled="editable">Update Ticket</button>
 	            </div>
 		    }
 		</div>
@@ -317,6 +309,13 @@
 		    	$scope.assignFields = !$scope.assignFields;
 			}
 			
+			$scope.validate = function(assignTo) {
+				if(assignTo == '? undefined:undefined ?')
+					{
+						alert('You cannot leave this field blank');
+					}
+			}
+			
 			$scope.toggleUpdateTicket = function(id, custInfo, comment, originator, status, assignTo) {
 				$scope.id = id;
 				$scope.customerInfo = custInfo;
@@ -324,6 +323,11 @@
 				$scope.createdBy = originator;
 				$scope.status = status;
 				$scope.assignTo = assignTo;
+				$scope.editable = false;
+		    	if($scope.status == "Close")
+		    	{
+		    		$scope.editable = true;
+		    	}
 				$scope.addView = false;
 		    	$scope.showView = false;
 		    	$scope.assignView = false;
