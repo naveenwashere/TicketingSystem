@@ -46,27 +46,26 @@
 					<tr> 
 						<label id="lbl_customerInfo" for="customerInfo" class="col-sm-4 control-label">Customer Information</label>
 			            <div class="col-sm-8">
-			                <input type="text" class="form-control" name="customerInfo" id="customerInfo" placeholder="" ng-model="customerInfo">
+			                <input type="text" class="form-control" name="customerInfo" id="customerInfo" placeholder="" ng-model="customerInfo" required>
 			            </div>
 					</tr>
 					<tr> 
 						<label id="lbl_comments" for="comments" class="col-sm-4 control-label">Comments</label>
 			            <div class="col-sm-8">
-			                <textarea class="form-control" name="comments" id="comments" placeholder="" ng-model="comments"></textarea>
+			                <textarea class="form-control" name="comments" id="comments" placeholder="" ng-model="comments" required></textarea>
 			            </div>
 					</tr>
 					<tr> 
 						<label id="lbl_createdBy" for="createdBy" class="col-sm-4 control-label">Created By</label>
 			            <div class="col-sm-8">
-			                <input type="text" class="form-control" name="createdBy" id="createdBy" placeholder="" ng-model="createdBy">
+			                <input type="text" class="form-control" name="createdBy" id="createdBy" placeholder="" ng-model="createdBy" required>
 			            </div>
 					</tr>
 					<tr> 
 						<label id="lbl_status" for="status" class="col-sm-4 control-label">Status</label>
 			            <div class="col-sm-8">
-			                 <select class="form-control" name="status" id="status" placeholder="" ng-model="status">
-			                	<option value="New" class="btn dropdown-toggle">New</option>
-			                 </select>
+			                <input type="text" class="form-control" name="status" id="status" placeholder="" ng-model="status" readonly>
+			                	{{$scope.status}}
 			            </div>
 					</tr>
 				</table> 
@@ -221,6 +220,7 @@
 		    	$scope.showView = false;
 		    	$scope.assignView = false;
 		    	$scope.assignFields = false;
+		    	$scope.status = "New";
 		        $scope.addView = !$scope.addView;
 		    }
 		    
