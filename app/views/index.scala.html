@@ -107,7 +107,9 @@
 						<td>
 							@form(routes.Application.deleteTask(task.id)) {
 			                    <button type="submit" class="btn btn-success" id="btn_create" value="Delete">Delete This Ticket</button>
-			                }							
+			                }
+			                <br>			                
+			               	<button ng-click="toggleUpdateTicket('@task.id', '@task.customerInfo', '@task.comments', '@task.createdBy', '@task.status', '@task.assignTo')" class="btn btn-success" id="btn_create">Update This Ticket</button>							
 						</td>
 				      </tr>
 			        }
@@ -211,6 +213,67 @@
 		    }
 		</div>
 		
+		<div ng-show="updateView">
+			@form(routes.Application.assign()) {
+		    	<h2>Update This Ticket</h2>
+		        <table style="width:100%; border: 1px solid black; border-collapse: collapse;">
+		        	<tr> 
+						<label id="lbl_customerInfo" for="id" class="col-sm-4 control-label">Ticket ID</label>
+			            <div class="col-sm-8">
+			                <input type="text" class="form-control" name="id" id="id" placeholder="" ng-model="id" readonly>
+			                	{{$scope.id}}
+			            </div>
+					</tr>
+					<tr> 
+						<label id="lbl_customerInfo" for="customerInfo" class="col-sm-4 control-label">Customer Information</label>
+			            <div class="col-sm-8">
+			                <input type="text" class="form-control" name="customerInfo" id="customerInfo" placeholder="" ng-model="customerInfo">
+			                	{{$scope.customerInfo}}
+			            </div>
+					</tr>
+					<tr> 
+						<label id="lbl_comments" for="comments" class="col-sm-4 control-label">Comments</label>
+			            <div class="col-sm-8">
+			                <textarea class="form-control" name="comments" id="comments" placeholder="" ng-model="comments">
+			                	{{$scope.comments}}
+			                </textarea>
+			            </div>
+					</tr>
+					<tr> 
+						<label id="lbl_createdBy" for="createdBy" class="col-sm-4 control-label">Created By</label>
+			            <div class="col-sm-8">
+			                <input type="text" class="form-control" name="createdBy" id="createdBy" placeholder="" ng-model="createdBy">
+			                	{{$scope.createdBy}}
+			            </div>
+					</tr>
+					<tr> 
+						<label id="lbl_status" for="status" class="col-sm-4 control-label">Status</label>
+			            <div class="col-sm-8">
+			                 <select class="form-control" name="status" id="status" placeholder="" ng-model="status" ng-init="{{$scope.status}}">
+			                	<option value="New" class="btn dropdown-toggle">New</option>
+			                	<option value="Open" class="btn dropdown-toggle">Open</option>
+			                	<option value="Close" class="btn dropdown-toggle">Close</option>
+			                 </select>
+			            </div>
+					</tr>
+					<tr> 
+						<label id="lbl_status" for="assignTo" class="col-sm-4 control-label">Assign To</label>
+			            <div class="col-sm-8">
+			                 <select class="form-control" name="assignTo" id="assignTo" placeholder="" ng-model="assignTo" ng-init="{{$scope.assignTo}}">
+			                	@for(task <- tasks) {
+						        	<option value="@task.createdBy" class="btn dropdown-toggle">@task.createdBy</option>
+						        }
+			                 </select>
+			            </div>
+					</tr>
+				</table> 
+				<br>
+				<div class="col-sm-offset-4 col-sm-8 text-right">
+	                <button type="submit" class="btn btn-success" id="btn_create" value="Assign">Assign Ticket</button>
+	            </div>
+		    }
+		</div>
+		
 	</div>
 	
 	<script>
@@ -220,6 +283,7 @@
 		    	$scope.showView = false;
 		    	$scope.assignView = false;
 		    	$scope.assignFields = false;
+		    	$scope.updateView = false;
 		    	$scope.status = "New";
 		        $scope.addView = !$scope.addView;
 		    }
@@ -228,6 +292,7 @@
 		    	$scope.addView = false;
 		    	$scope.assignView = false;
 		    	$scope.assignFields = false;
+		    	$scope.updateView = false;
 		        $scope.showView = !$scope.showView;
 		    }
 			
@@ -235,6 +300,7 @@
 		    	$scope.addView = false;
 		    	$scope.showView = false;
 		    	$scope.assignFields = false;
+		    	$scope.updateView = false;
 		        $scope.assignView = !$scope.assignView;
 		    }
 			
@@ -247,7 +313,21 @@
 				$scope.addView = false;
 		    	$scope.showView = false;
 		    	$scope.assignView = false;
+		    	$scope.updateView = false;
 		    	$scope.assignFields = !$scope.assignFields;
+			}
+			
+			$scope.toggleUpdateTicket = function(id, custInfo, comment, originator, status, assignTo) {
+				$scope.id = id;
+				$scope.customerInfo = custInfo;
+				$scope.comments = comment;
+				$scope.createdBy = originator;
+				$scope.status = status;
+				$scope.assignTo = assignTo;
+				$scope.addView = false;
+		    	$scope.showView = false;
+		    	$scope.assignView = false;
+		    	$scope.updateView = !$scope.updateView;
 			}
 		});
 	</script>
