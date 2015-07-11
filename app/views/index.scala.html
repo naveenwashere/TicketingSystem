@@ -30,7 +30,7 @@
             </div>
             <br>
             <div>
-                <button type="submit" ng-click="toggleShow()" class="btn btn-primary btn-block" id="btn_create">View Tickets</button>
+                <button type="submit" ng-click="toggleShow()" class="btn btn-primary btn-block" id="btn_create">View / Update / Delete Tickets</button>
             </div>
             <br>
             <div>
@@ -256,6 +256,15 @@
 			            <div class="col-sm-8">
 			                <input type="text" class="form-control" name="createdBy" id="createdBy" placeholder="" ng-model="createdBy" ng-disabled="editable">
 			                	{{$scope.createdBy}}
+			            </div>
+					</tr>
+					<tr> 
+						<div ng-show="editable">
+							<label id="lbl_createdBy" for="assignTo" class="col-sm-4 control-label">Assigned To</label>
+				            <div class="col-sm-8">
+				                <input type="text" class="form-control" name="assignTo" id="assignTo" placeholder="" ng-model="assignTo" ng-disabled="editable">
+				                	{{$scope.createdBy}}
+				            </div>
 			            </div>
 					</tr>
 				</table> 
