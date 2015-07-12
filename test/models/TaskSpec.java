@@ -13,7 +13,7 @@ public class TaskSpec {
 
     @Before
     public void initialize() {
-        Task.removeAll();
+        Ticket.removeAll();
     }
 
     @Test
@@ -21,8 +21,8 @@ public class TaskSpec {
         running(fakeApplication(), new Runnable() {
             public void run() {
                 String testLabel = "Task label";
-                Task.create(testLabel, "", "", "", "");
-                    List<Task> tasks = Task.all();
+                Ticket.create(testLabel, "", "", "", "");
+                    List<Ticket> tasks = Ticket.all();
 
                 assertThat(tasks.size()).isEqualTo(1);
                 assertThat(tasks.get(0).customerInfo).isEqualTo(testLabel);
@@ -33,12 +33,12 @@ public class TaskSpec {
     @Test
     public void beDeletable(){
         String testLabel = "Task label";
-        Task.create(testLabel, "", "", "", "");
+        Ticket.create(testLabel, "", "", "", "");
 
-        List<Task> tasks = Task.all();
-        Task.delete(tasks.get(0).id);
+        List<Ticket> tasks = Ticket.all();
+        Ticket.delete(tasks.get(0).id);
 
-        tasks = Task.all();
+        tasks = Ticket.all();
         assertThat(tasks.size()).isEqualTo(0);
     }
 }

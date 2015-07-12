@@ -7,7 +7,7 @@ import net.vz.mongodb.jackson.JacksonDBCollection;
 import net.vz.mongodb.jackson.ObjectId;
 import play.modules.mongodb.jackson.MongoDB;
 
-public class Task
+public class Ticket
 {
     
   @Id
@@ -24,14 +24,14 @@ public class Task
   
   public String assignTo;
   
-  private static JacksonDBCollection<Task, String> coll = MongoDB.getCollection("tasks", Task.class, String.class);
+  private static JacksonDBCollection<Ticket, String> coll = MongoDB.getCollection("tickets", Ticket.class, String.class);
   
-  public Task()
+  public Ticket()
   {
 
   }
 
-  public Task(String customerInfo, String comments, String createdBy, String status, String assignTo) 
+  public Ticket(String customerInfo, String comments, String createdBy, String status, String assignTo) 
   {
     this.customerInfo = customerInfo;
     this.comments = comments;
@@ -40,38 +40,38 @@ public class Task
     this.assignTo = assignTo;
   }
 
-  public static List<Task> all() 
+  public static List<Ticket> all() 
   {
-    return Task.coll.find().toArray();
+    return Ticket.coll.find().toArray();
   }
 
-  public static void create(Task task) 
+  public static void create(Ticket ticket) 
   {
-    Task.coll.save(task);
+    Ticket.coll.save(ticket);
   }
   
-  public static void update(Task task) 
+  public static void update(Ticket ticket) 
   {
-    Task.coll.update(Task.coll.findOneById(task.id), task);
+    Ticket.coll.update(Ticket.coll.findOneById(ticket.id), ticket);
   }
 
   public static void create(String customerInfo, String comments, String createdBy, String status, String assignTo)
   {
-      create(new Task(customerInfo, comments, createdBy, status, assignTo));
+      create(new Ticket(customerInfo, comments, createdBy, status, assignTo));
   }
 
   public static void delete(String id) 
   {
-    Task task = Task.coll.findOneById(id);
-    if (task != null)
+    Ticket ticket = Ticket.coll.findOneById(id);
+    if (ticket != null)
     {
-        Task.coll.remove(task);
+        Ticket.coll.remove(ticket);
     }
   }
 
   public static void removeAll()
   {
-    Task.coll.drop();
+    Ticket.coll.drop();
   }
 
 }

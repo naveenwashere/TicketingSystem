@@ -26,11 +26,11 @@ $scope.toggleAssign = function() {
 };
 
 $scope.toggleAssignTicket = function(id, custInfo, comment, originator) {
-	$scope.id = id;
-	$scope.customerInfo = custInfo;
-	$scope.comments = comment;
-	$scope.createdBy = originator;
-	$scope.status = "Open";
+	$scope.assignId = id;
+	$scope.assignCustomerInfo = custInfo;
+	$scope.assignComments = comment;
+	$scope.assignCreatedBy = originator;
+	$scope.assignStatus = "Open";
 	$scope.addView = false;
 	$scope.showView = false;
 	$scope.assignView = false;
@@ -39,14 +39,14 @@ $scope.toggleAssignTicket = function(id, custInfo, comment, originator) {
 };
 
 $scope.toggleUpdateTicket = function(id, custInfo, comment, originator, status, assignTo) {
-	$scope.id = id;
-	$scope.customerInfo = custInfo;
-	$scope.comments = comment;
-	$scope.createdBy = originator;
-	$scope.status = status;
-	$scope.assignTo = assignTo;
+	$scope.updateId = id;
+	$scope.updateCustomerInfo = custInfo;
+	$scope.updateComments = comment;
+	$scope.updateCreatedBy = originator;
+	$scope.updateStatus = status;
+	$scope.updateAssignTo = assignTo;
 	$scope.editable = false;
-	if($scope.status == "Close")
+	if($scope.updateStatus == "Close")
 	{
 		$scope.editable = true;
 	}
@@ -54,5 +54,13 @@ $scope.toggleUpdateTicket = function(id, custInfo, comment, originator, status, 
 	$scope.showView = false;
 	$scope.assignView = false;
 	$scope.updateView = !$scope.updateView;
+	};
+	
+$scope.closeAllViews = function() {
+	$scope.addView = false;
+	$scope.showView = false;
+	$scope.assignView = false;
+	$scope.updateView = false;
+	$scope.assignFields = false;
 	};
 });
