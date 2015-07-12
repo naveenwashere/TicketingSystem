@@ -1,7 +1,9 @@
 package controllers;
 
 import models.Ticket;
+import models.Users;
 import play.data.Form;
+import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -18,6 +20,13 @@ public class Application extends Controller {
   {
     return ok(
       views.html.index.render(Ticket.all(), ticketForm)
+    );
+  }
+  
+  public static Result users() 
+  {
+    return ok(
+      Json.toJson(Users.all())
     );
   }
   
