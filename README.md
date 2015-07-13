@@ -47,9 +47,9 @@ There is no authentication mechanism as of now.
 * Go to the bin directory within the installation directory of MongoDB and start the "mongod.exe"
 
 * Open another command prompt and start the mongo.exe file and type the following commands in the console:
-**	use ticketsDB		-> creates the required DB
-**	db.createCollection("users")		-> created the 'users' table/collection
-**	db.post.insert([{userName: "John"}, {userName: "Tom"}, {userName: "Gary"}, {userName: "Scott"}, {userName: "Paul"}])		-> creates 5 documents/rows with the given names
+**    use ticketsDB		-> creates the required DB
+**    db.createCollection("users")		-> created the 'users' table/collection
+**    db.post.insert([{userName: "John"}, {userName: "Tom"}, {userName: "Gary"}, {userName: "Scott"}, {userName: "Paul"}])		-> creates 5 documents/rows with the given names
 
 * Clone the repository or download the code as a ZIP file
 
