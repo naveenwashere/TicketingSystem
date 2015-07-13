@@ -3,7 +3,7 @@ var app = angular.module('myApp', []);
 app.controller('appCtrl', function($scope, $http) {
 	
 $http.get("/users").success(function(response) {
-	$scope.res = JSON.stringify(response);
+	$scope.users = response;
 });
 $scope.toggleAdd = function() {
 	$scope.showView = false;

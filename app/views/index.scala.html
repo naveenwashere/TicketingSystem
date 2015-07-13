@@ -54,7 +54,10 @@
 					<tr> 
 						<label id="lbl_createdBy" for="createdBy" class="col-sm-4 control-label">Created By</label>
 			            <div class="col-sm-8">
-			                <input type="text" class="form-control" name="createdBy" id="createdBy" placeholder="" ng-model="createdBy" required>
+			                <select class="form-control" name="createdBy" id="createdBy" placeholder="" ng-model="createdBy" required>
+			                	<option value="" class="btn dropdown-toggle">--Select--</option>
+			                	<option value="{{user.userName}}" class="btn dropdown-toggle" ng-repeat="user in users">{{ user.userName }}</option>
+			                </select>
 			            </div>
 					</tr>
 					<tr> 
@@ -186,20 +189,17 @@
 					<tr> 
 						<label id="lbl_status" for="status" class="col-sm-4 control-label">Status</label>
 			            <div class="col-sm-8">
-			                 <select class="form-control" name="status" id="status" placeholder="" ng-model="assignStatus" required>
-			                	<option value="Open" class="btn dropdown-toggle">Open</option>
-			                 </select>
+			                <input type="text" class="form-control" name="status" id="status" placeholder="" ng-model="assignStatus" readonly>
+			                	{{$scope.status}}
 			            </div>
 					</tr>
 					<tr> 
 						<label id="lbl_status" for="assignTo" class="col-sm-4 control-label">Assign To</label>
 			            <div class="col-sm-8">
-			                 <select class="form-control" name="assignTo" id="assignTo" placeholder="" ng-model="assignAssignTo" required>
-			                 		<option selected disabled value="" class="btn dropdown-toggle">--Select--</option>
-			                	@for(ticket <- tickets) {
-						        	<option value="@ticket.createdBy" class="btn dropdown-toggle">@ticket.createdBy</option>
-						        }
-			                 </select>
+			                 <select class="form-control" name="assignTo" id="assignTo" placeholder="" ng-model="assignTo" required>
+			                	<option value="" class="btn dropdown-toggle">--Select--</option>
+			                	<option value="{{user.userName}}" class="btn dropdown-toggle" ng-repeat="user in users">{{ user.userName }}</option>
+			                </select>
 			            </div>
 					</tr>
 				</table> 
