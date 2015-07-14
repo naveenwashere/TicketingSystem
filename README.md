@@ -39,6 +39,11 @@ The landing page of the site has three buttons to Add a ticket, View/Update/Dele
 
 There is no authentication mechanism as of now.
 
+# Search Ticket by ID
+* If the user already knows the ticket id they want to see, they could use the ticket ID and search for it in the newly added search box
+
+* Upon hitting search, the data is queried through an HTTP request and then displayed using the Update ticket view.
+
 # Set-up Details:
 * First you need MongoDB as your data store. Download MongoDB and install it (https://www.mongodb.org/downloads)
 
