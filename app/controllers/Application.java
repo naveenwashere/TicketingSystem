@@ -69,5 +69,12 @@ public class Application extends Controller {
     Ticket.delete(id);
     return redirect(routes.Application.tickets());
   }
+  
+  public static Result searchTicketById(String id) 
+  {
+    return ok(
+    	      Json.toJson(Ticket.findById(id))
+    	    );
+  }
 
 }

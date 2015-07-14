@@ -68,6 +68,11 @@ public class Ticket
         Ticket.coll.remove(ticket);
     }
   }
+  
+  public static Ticket findById(String id) 
+  {
+    return Ticket.coll.findOneById(id);
+  }
 
   public static void removeAll()
   {

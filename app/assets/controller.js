@@ -68,4 +68,13 @@ $scope.closeAllViews = function() {
 	$scope.updateView = false;
 	$scope.assignFields = false;
 	};
+	
+$scope.toggleSearch = function(id) {
+	$scope.closeAllViews();
+	$http.get("/tickets/" + id + "/searchById").success(function(response) {
+		$scope.ticket = response;
+		var obj = JSON.parse(JSON.stringify($scope.ticket));
+		$scope.toggleUpdateTicket(obj.id, obj.customerInfo, obj.comments, obj.createdBy, obj.status, obj.assignTo);
+	});
+};	
 });

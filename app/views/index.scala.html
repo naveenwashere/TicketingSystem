@@ -21,6 +21,11 @@
 	<div ng-app="myApp" ng-controller="appCtrl">
     	
     	<div class="form-group">
+    		<div>
+            	<center><input type="text" name="searchById" id="searchById" ng-model="searchById">
+                <button type="submit" ng-click="toggleSearch(searchById)" class="btn btn-primary" id="btn_create" align="center"><span class="glyphicon glyphicon-search"></span> Search Ticket By ID</button></center>
+            </div>
+            <br>
             <div>
                 <button type="submit" ng-click="toggleAdd()" class="btn btn-primary btn-block" id="btn_create">Log Ticket</button>
             </div>
@@ -32,6 +37,7 @@
             <div>
                 <button type="submit" ng-click="toggleAssign()" class="btn btn-primary btn-block" id="btn_create">Assign Ticket</button>
             </div>
+            <br>
         </div>
     	
 		<div ng-show="addView">	    
