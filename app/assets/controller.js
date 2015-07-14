@@ -70,6 +70,9 @@ $scope.closeAllViews = function() {
 	};
 	
 $scope.toggleSearch = function(id) {
+	if(typeof id === 'undefined') {
+		alert("Please enter a valid ticket ID.");
+	}
 	$scope.closeAllViews();
 	$http.get("/tickets/" + id + "/searchById").success(function(response) {
 		$scope.ticket = response;
