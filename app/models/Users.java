@@ -1,7 +1,9 @@
 package models;
 
+import java.util.Iterator;
 import java.util.List;
 
+import net.vz.mongodb.jackson.DBCursor;
 import net.vz.mongodb.jackson.Id;
 import net.vz.mongodb.jackson.JacksonDBCollection;
 import net.vz.mongodb.jackson.ObjectId;
@@ -14,6 +16,8 @@ public class Users
 	  public String id;
 	  
 	  public String userName;
+	  
+	  public String password;
 
 	  private static JacksonDBCollection<Users, String> coll = MongoDB.getCollection("users", Users.class, String.class);
 
@@ -22,7 +26,7 @@ public class Users
 
 	  }
 
-	  public Users(String userName) 
+	  public Users(String userName, String passowrd) 
 	  {
 	    this.userName = userName;
 	  }
@@ -37,9 +41,9 @@ public class Users
 	    Users.coll.save(users);
 	  }
 
-	  public static void create(String userName)
+	  public static void create(String userName, String password)
 	  {
-	      create(new Users(userName));
+	      create(new Users(userName, password));
 	  }
 
 	  public static void delete(String id) 
@@ -53,6 +57,22 @@ public class Users
 	  {
 	    Users.coll.drop();
 	  }
+
+	public static boolean authenticate(String username, String password) {
+		DBCursor<Users> users = Users.coll.find();
+		Iterator<Users> itr = users.iterator();
+		String passFromDB = null;
+		while(itr.hasNext())
+		{
+			Users user = itr.next();
+			if(user.userName.equals(username))
+			{
+				passFromDB = user.password;
+				break;
+			}
+		}
+		return (passFromDB.equals(password) ? true : false);		
+	}
 
 
 }

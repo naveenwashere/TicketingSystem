@@ -5,6 +5,15 @@ app.controller('appCtrl', function($scope, $http) {
     $scope.users = response;
   });
   
+  if(window.localStorage.getItem('userInSession') !== null)
+  {
+  $scope.loginState = true;
+  }
+  else
+  {
+  $scope.loginState = false;
+  }
+    
   $scope.toggleAdd = function() {
     $scope.showView = false;
     $scope.assignView = false;
@@ -87,4 +96,30 @@ app.controller('appCtrl', function($scope, $http) {
       location.reload(true);
     });
   };
+  
+  $scope.toggleLogin = function(username, password) {
+    $http.get('/users/' + username + '/' + password + '/login').success(function(response) {
+      $scope.loginState = response;
+      
+      if($scope.loginState === true) {
+      $scope.storeSessionInfo(username, 'true');	
+      }
+
+      if($scope.loginState === false) {
+	$scope.loginState = false;
+	alert('Invalid Username/Passowrd. Please try again!');
+      }
+      
+    });
+    
+  $scope.storeSessionInfo = function(username, loginFlag) {
+  window.localStorage.setItem('userInSession', username);
+  };
+  };
+  
+  $scope.toggleLogout = function() {
+	window.localStorage.removeItem('userInSession');
+	location.reload(true);  
+  };
 });
+

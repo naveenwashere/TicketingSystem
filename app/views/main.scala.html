@@ -12,6 +12,10 @@
 			    text-align:center;
 			}
 			
+			td{
+			    text-align:center;
+			}
+			
 			html, body {
 			  height: 100%;
 			}
@@ -27,26 +31,21 @@
 			
 			.footer {
 			  position: relative;
-			  margin-top: -150px; /* negative value of footer height */
 			  height: 150px;
 			  clear:both;
-			  padding-top:20px;
+			  padding-top:200px;
 			} 
 		</style>
     </head>
     <body>
         @content
     </body>
-
-	<footer class="footer">
+	<div class="footer">
 	    <hr/>
 	    <div>
 	        <center><span>&copy; Defect Tracking System 2015</span></center>
 	        <center><span> Naveen Kumar Kalapati</span></center>
-	        </div>
-	    <div>
-	        <span app-version></span>
-	    </div>
-	</footer>
+        </div>
+	</div>
     
 </html>

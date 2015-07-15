@@ -76,5 +76,12 @@ public class Application extends Controller {
     	      Json.toJson(Ticket.findById(id))
     	    );
   }
+  
+  public static Result login(String username, String password) 
+  {
+    return ok(
+    	      Json.toJson(Users.authenticate(username, password))
+    	    );
+  }
 
 }
