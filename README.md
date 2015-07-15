@@ -4,7 +4,7 @@ This is a very simple ticketing system that is developed using Angular JS, Play 
 
 One can create tickets, view, update, assign and delete them.
 
-The landing page of the site has three buttons to Add a ticket, View/Update/Delete a ticket and Assign a ticket. Based on the button you click, some set of fields are shown on which you can take actions.
+The landing page of the site has three buttons to Add a ticket, View/Update/Delete a ticket and Assign a ticket and one more to search a ticket by ID. Based on the button you click, some set of fields are shown on which you can take additional actions.
 
 # Add ticket:
 * Contains list of fields to add Customer Info, Comments, Created by
@@ -52,9 +52,9 @@ There is no authentication mechanism as of now.
 * Go to the bin directory within the installation directory of MongoDB and start the "mongod.exe"
 
 * Open another command prompt and start the mongo.exe file and type the following commands in the console:
-*    use ticketsDB		-> creates the required DB
-*    db.createCollection("users")		-> created the 'users' table/collection
-*    db.post.insert([{userName: "John"}, {userName: "Tom"}, {userName: "Gary"}, {userName: "Scott"}, {userName: "Paul"}])		-> creates 5 documents/rows with the given names
+*    '''use ticketsDB'''		-> creates the required DB
+*    '''db.createCollection("users")'''		-> created the 'users' table/collection'''
+*    '''db.post.insert([{userName: "John"}, {userName: "Tom"}, {userName: "Gary"}, {userName: "Scott"}, {userName: "Paul"}])'''		-> creates 5 documents/rows with the given names
 
 * Clone the repository or download the code as a ZIP file
 
