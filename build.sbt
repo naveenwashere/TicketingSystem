@@ -1,4 +1,4 @@
-name := "TicketingSystem"
+name := "todoJava"
 
 version := "1.0-SNAPSHOT"
 
