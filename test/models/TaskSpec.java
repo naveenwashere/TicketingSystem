@@ -25,7 +25,7 @@ public class TaskSpec {
                     List<Ticket> tasks = Ticket.all();
 
                 assertThat(tasks.size()).isEqualTo(1);
-                assertThat(tasks.get(0).customerInfo).isEqualTo(testLabel);
+                assertThat(tasks.get(0).getCustomerInfo()).isEqualTo(testLabel);
             }
         });
     }
@@ -36,7 +36,7 @@ public class TaskSpec {
         Ticket.create(testLabel, "", "", "", "");
 
         List<Ticket> tasks = Ticket.all();
-        Ticket.delete(tasks.get(0).id);
+        Ticket.delete(tasks.get(0).getId());
 
         tasks = Ticket.all();
         assertThat(tasks.size()).isEqualTo(0);

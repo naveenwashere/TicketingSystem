@@ -12,17 +12,17 @@ public class Ticket
     
   @Id
   @ObjectId
-  public String id;
+  private String id;
   
-  public String customerInfo;
+  private String customerInfo;
 
-  public String comments;
+  private String comments;
   
-  public String createdBy;
+  private String createdBy;
 
-  public String status;
+  private String status;
   
-  public String assignTo;
+  private String assignTo;
   
   private static JacksonDBCollection<Ticket, String> coll = MongoDB.getCollection("tickets", Ticket.class, String.class);
   
@@ -78,5 +78,53 @@ public class Ticket
   {
     Ticket.coll.drop();
   }
+  
+  	public String getId() {
+	  return id;
+	}
+	
+	public void setId(String id) {
+		this.id = id;
+	}
+	
+	public String getCustomerInfo() {
+		return customerInfo;
+	}
+	
+	public void setCustomerInfo(String customerInfo) {
+		this.customerInfo = customerInfo;
+	}
+	
+	public String getComments() {
+		return comments;
+	}
+	
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
+	
+	public String getCreatedBy() {
+		return createdBy;
+	}
+	
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+	
+	public String getStatus() {
+		return status;
+	}
+	
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
+	public String getAssignTo() {
+		return assignTo;
+	}
+	
+	public void setAssignTo(String assignTo) {
+		this.assignTo = assignTo;
+	}
 
 }

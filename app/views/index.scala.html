@@ -120,18 +120,18 @@
 					    <tbody>
 		        		
 		        		@for(ticket <- tickets) {
-					      <tr ng-if="'@ticket.createdBy' == loggedInUser || '@ticket.assignTo' == loggedInUser">
-					      	<td>@ticket.id</td>
-							<td>@ticket.customerInfo</td>
-							<td>@ticket.comments</td>
-							<td>@ticket.createdBy</td>
-							<td>@ticket.status</td>
-							<td>@ticket.assignTo</td>
+					      <tr ng-if="'@ticket.getCreatedBy()' == loggedInUser || '@ticket.getAssignTo()' == loggedInUser">
+					      	<td>@ticket.getId()</td>
+							<td>@ticket.getCustomerInfo()</td>
+							<td>@ticket.getComments()</td>
+							<td>@ticket.getCreatedBy()</td>
+							<td>@ticket.getStatus()</td>
+							<td>@ticket.getAssignTo()</td>
 							<td>
 							<center>
-				                <button ng-click="deleteTicket('@ticket.id')" type="submit" class="btn btn-danger" style="width: 100px;" id="btn_create" value="Delete" onclick="return confirm('Are you sure you want to do this? \nYou will not be able to recover this data.')" ><span class="glyphicon glyphicon-minus-sign"></span> Delete</button>
-				               	<button ng-click="toggleUpdateTicket('@ticket.id', '@ticket.customerInfo', '@ticket.comments', '@ticket.createdBy', '@ticket.status', '@ticket.assignTo')" class="btn btn-success" style="width: 100px;" id="btn_create"><span class="glyphicon glyphicon-share-alt"></span> View</button>
-				               	<button ng-click="toggleAssignTicket('@ticket.id', '@ticket.customerInfo', '@ticket.comments', '@ticket.createdBy')" class="btn btn-warning" id="btn_create"><span class="glyphicon glyphicon-user"></span> Assign</button>
+				                <button ng-click="deleteTicket('@ticket.getId()')" type="submit" class="btn btn-danger" style="width: 100px;" id="btn_create" value="Delete" onclick="return confirm('Are you sure you want to do this? \nYou will not be able to recover this data.')" ><span class="glyphicon glyphicon-minus-sign"></span> Delete</button>
+				               	<button ng-click="toggleUpdateTicket('@ticket.getId()', '@ticket.getCustomerInfo()', '@ticket.getComments()', '@ticket.getCreatedBy()', '@ticket.getStatus()', '@ticket.getAssignTo()')" class="btn btn-success" style="width: 100px;" id="btn_create"><span class="glyphicon glyphicon-share-alt"></span> View</button>
+				               	<button ng-click="toggleAssignTicket('@ticket.getId()', '@ticket.getCustomerInfo()', '@ticket.getComments()', '@ticket.getCreatedBy()')" class="btn btn-warning" id="btn_create"><span class="glyphicon glyphicon-user"></span> Assign</button>
 				            </center>							
 							</td>
 					      </tr>
@@ -158,12 +158,12 @@
 		        		
 		        		@for(ticket <- tickets) {
 					      <tr>
-					      	<td>@ticket.id</td>
-							<td>@ticket.customerInfo</td>
-							<td>@ticket.comments</td>
-							<td>@ticket.createdBy</td>
-							<td>@ticket.status</td>
-							<td>@ticket.assignTo</td>
+					      	<td>@ticket.getId()</td>
+							<td>@ticket.getCustomerInfo()</td>
+							<td>@ticket.getComments()</td>
+							<td>@ticket.getCreatedBy()</td>
+							<td>@ticket.getStatus()</td>
+							<td>@ticket.getAssignTo()</td>
 					      </tr>
 				        }
 				     </tbody>

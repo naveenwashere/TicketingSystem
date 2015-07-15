@@ -13,11 +13,11 @@ public class Users
 {
 	  @Id
 	  @ObjectId
-	  public String id;
+	  private String id;
 	  
-	  public String userName;
+	  private String userName;
 	  
-	  public String password;
+	  private String password;
 
 	  private static JacksonDBCollection<Users, String> coll = MongoDB.getCollection("users", Users.class, String.class);
 
@@ -73,6 +73,29 @@ public class Users
 		}
 		return (passFromDB.equals(password) ? true : false);		
 	}
+	
+	public String getId() {
+		return id;
+	}
 
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 }
