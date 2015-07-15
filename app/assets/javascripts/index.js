@@ -8,24 +8,27 @@ app.controller('appCtrl', function($scope, $http) {
   if(window.localStorage.getItem('userInSession') !== null)
   {
   $scope.loginState = true;
+  $scope.loggedInUser = window.localStorage.getItem('userInSession');
   }
   else
   {
   $scope.loginState = false;
+  $scope.loggedInUser = "";
   }
     
   $scope.toggleAdd = function() {
     $scope.showView = false;
-    $scope.assignView = false;
+    $scope.showAllView = false;
     $scope.assignFields = false;
     $scope.updateView = false;
     $scope.status = 'New';
+    $scope.createdBy = $scope.loggedInUser;
     $scope.addView = !$scope.addView;
   };
   
   $scope.toggleShow = function() {
     $scope.addView = false;
-    $scope.assignView = false;
+    $scope.showAllView = false;
     $scope.assignFields = false;
     $scope.updateView = false;
     $scope.showView = !$scope.showView;
@@ -36,7 +39,7 @@ app.controller('appCtrl', function($scope, $http) {
     $scope.showView = false;
     $scope.assignFields = false;
     $scope.updateView = false;
-    $scope.assignView = !$scope.assignView;
+    $scope.showAllView = !$scope.showAllView;
   };
   
   $scope.toggleAssignTicket = function(id, custInfo, comment, originator) {
@@ -47,7 +50,7 @@ app.controller('appCtrl', function($scope, $http) {
     $scope.assignStatus = 'Open';
     $scope.addView = false;
     $scope.showView = false;
-    $scope.assignView = false;
+    $scope.showAllView = false;
     $scope.updateView = false;
     $scope.assignFields = !$scope.assignFields;
   };
@@ -65,14 +68,14 @@ app.controller('appCtrl', function($scope, $http) {
     }
     $scope.addView = false;
     $scope.showView = false;
-    $scope.assignView = false;
+    $scope.showAllView = false;
     $scope.updateView = !$scope.updateView;
   };
   
   $scope.closeAllViews = function() {
     $scope.addView = false;
     $scope.showView = false;
-    $scope.assignView = false;
+    $scope.showAllView = false;
     $scope.updateView = false;
     $scope.assignFields = false;
   };
@@ -99,20 +102,20 @@ app.controller('appCtrl', function($scope, $http) {
   
   $scope.toggleLogin = function(username, password) {
     $http.get('/users/' + username + '/' + password + '/login').success(function(response) {
-      $scope.loginState = response;
       
-      if($scope.loginState === true) {
-      $scope.storeSessionInfo(username, 'true');	
+      if(response === true) {
+      $scope.storeSessionInfo(username);
+      location.reload(true);  
       }
 
-      if($scope.loginState === false) {
+      if(response === false) {
 	$scope.loginState = false;
 	alert('Invalid Username/Passowrd. Please try again!');
       }
       
     });
     
-  $scope.storeSessionInfo = function(username, loginFlag) {
+  $scope.storeSessionInfo = function(username) {
   window.localStorage.setItem('userInSession', username);
   };
   };

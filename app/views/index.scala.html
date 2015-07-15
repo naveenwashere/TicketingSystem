@@ -35,8 +35,8 @@
     	
     	<div class="col-sm-2">
     		<div>
-            	<center><input type="text" name="searchById" id="searchById" ng-model="searchById">
-                <button type="submit" ng-click="toggleSearch(searchById)" class="btn btn-primary" id="btn_create" align="center"><span class="glyphicon glyphicon-search"></span> ID</button></center>
+            	<input type="text" name="searchById" id="searchById" ng-model="searchById" style="width: 165px">
+                <button type="submit" ng-click="toggleSearch(searchById)" class="btn btn-primary" id="btn_create" align="center"><span class="glyphicon glyphicon-search"></span> ID</button>
             </div>
             <br>
             <div>
@@ -48,7 +48,7 @@
             </div>
             <br>
             <div>
-                <button type="submit" ng-click="toggleAssign()" class="btn btn-primary btn-block" id="btn_create">Assign Ticket</button>
+                <button type="submit" ng-click="toggleAssign()" class="btn btn-primary btn-block" id="btn_create">View All Tickets</button>
             </div>
             <br>
             <div>
@@ -79,11 +79,10 @@
 						<tr> 
 							<label id="lbl_createdBy" for="createdBy" class="col-sm-4 control-label">Created By</label>
 				            <div class="col-sm-8">
-				                <select class="form-control" name="createdBy" id="createdBy" placeholder="" ng-model="createdBy" required>
-				                	<option value="" class="btn dropdown-toggle">--Select--</option>
-				                	<option value="{{user.userName}}" class="btn dropdown-toggle" ng-repeat="user in users">{{ user.userName }}</option>
-				                </select>
-				            </div>
+				               	<input type="text" class="form-control" name="createdBy" id="createdBy" placeholder="" ng-model="createdBy" readonly required>
+									{{$scope.createdBy}}
+				            </div>    
+				                
 						</tr>
 						<tr> 
 							<label id="lbl_status" for="status" class="col-sm-4 control-label">Status</label>
@@ -104,6 +103,7 @@
 	    
 			<div ng-show="showView">
 				<div class="container">
+				<input type="hidden" ng-model="loggedInUser">
 			    <h2>@tickets.size() ticket(s)</h2>
 	    		<table class="table table-striped table-hover table-condensed">
 					    <thead>
@@ -120,7 +120,7 @@
 					    <tbody>
 		        		
 		        		@for(ticket <- tickets) {
-					      <tr>
+					      <tr ng-if="'@ticket.createdBy' == loggedInUser || '@ticket.assignTo' == loggedInUser">
 					      	<td>@ticket.id</td>
 							<td>@ticket.customerInfo</td>
 							<td>@ticket.comments</td>
@@ -131,6 +131,7 @@
 							<center>
 				                <button ng-click="deleteTicket('@ticket.id')" type="submit" class="btn btn-danger" style="width: 100px;" id="btn_create" value="Delete" onclick="return confirm('Are you sure you want to do this? \nYou will not be able to recover this data.')" ><span class="glyphicon glyphicon-minus-sign"></span> Delete</button>
 				               	<button ng-click="toggleUpdateTicket('@ticket.id', '@ticket.customerInfo', '@ticket.comments', '@ticket.createdBy', '@ticket.status', '@ticket.assignTo')" class="btn btn-success" style="width: 100px;" id="btn_create"><span class="glyphicon glyphicon-share-alt"></span> View</button>
+				               	<button ng-click="toggleAssignTicket('@ticket.id', '@ticket.customerInfo', '@ticket.comments', '@ticket.createdBy')" class="btn btn-warning" id="btn_create"><span class="glyphicon glyphicon-user"></span> Assign</button>
 				            </center>							
 							</td>
 					      </tr>
@@ -140,7 +141,7 @@
 				</div>
 			</div>
 			
-			<div ng-show="assignView">
+			<div ng-show="showAllView">
 				<div class="container">
 	    		<table class="table table-striped table-hover table-condensed">
 					    <thead>
@@ -151,13 +152,11 @@
 					        <th>Created By</th>
 							<th>Status</th>
 							<th>Assinged To</th>
-					        <th>Action</th>
 					      </tr>
 					    </thead>
 					    <tbody>
 		        		
 		        		@for(ticket <- tickets) {
-		        		  @if(ticket.status != "Close") {
 					      <tr>
 					      	<td>@ticket.id</td>
 							<td>@ticket.customerInfo</td>
@@ -165,11 +164,7 @@
 							<td>@ticket.createdBy</td>
 							<td>@ticket.status</td>
 							<td>@ticket.assignTo</td>
-							<td>
-				            	<center><button ng-click="toggleAssignTicket('@ticket.id', '@ticket.customerInfo', '@ticket.comments', '@ticket.createdBy')" class="btn btn-success" id="btn_create"><span class="glyphicon glyphicon-user"></span> Assign</button></center>
-							</td>
 					      </tr>
-							}
 				        }
 				     </tbody>
 					</table>
