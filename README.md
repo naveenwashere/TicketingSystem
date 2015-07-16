@@ -37,7 +37,7 @@ The landing page of the site has three buttons to Add a ticket, View/Update/Dele
 
 * Currently, the list of users shown in the Assign field are queried from another collection named 'users'
 
-There is no authentication mechanism as of now.
+* There is a simple authentication mechanism as of now, which does not use any techniques like hashing or anything. I've kept it really really simple.
 
 # Search Ticket by ID
 * If the user already knows the ticket id they want to see, they could use the ticket ID and search for it in the newly added search box
@@ -54,7 +54,7 @@ There is no authentication mechanism as of now.
 * Open another command prompt and start the mongo.exe file and type the following commands in the console:
 *    use ticketsDB		-> creates the required DB
 *    db.createCollection("users")		-> created the 'users' table/collection'''
-*    db.post.insert([{userName: "John"}, {userName: "Tom"}, {userName: "Gary"}, {userName: "Scott"}, {userName: "Paul"}])		-> creates 5 documents/rows with the given names
+*    db.post.insert([{userName: "John", password: "John"}, {userName: "Tom", password: "Tom"}, {userName: "Gary", passowrd: "Gary"}, {userName: "Scott", passowrd: "Scott"}, {userName: "Paul", password: "Paul"}])		-> creates 5 documents/rows with the given names and passwords
 
 * Clone the repository or download the code as a ZIP file
 
